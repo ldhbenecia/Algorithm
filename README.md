@@ -1,4 +1,4 @@
 ## :: Algorithm
 
-### BOJ Algorithm solving...
-### Using Python
+##### BOJ Algorithm solving...
+###### Using Python
