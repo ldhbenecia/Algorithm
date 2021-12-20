@@ -1,11 +1,11 @@
+h = []
+
 for _ in range(9):
-    h = list(map(int,input()))
-    
+    h.append(int(input()))
+
 sum_total = sum(h)
 
-one, two = 0
-
-for i in range(9):
+for i in range(8):
     for j in range(i+1, 9):
         if sum_total - (h[i] + h[j]) == 100:
             one = h[i]
