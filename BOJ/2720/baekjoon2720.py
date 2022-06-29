@@ -1,5 +1,4 @@
 t = int(input())
-money = []
 
 for i in range(t):
     money = int(input())
