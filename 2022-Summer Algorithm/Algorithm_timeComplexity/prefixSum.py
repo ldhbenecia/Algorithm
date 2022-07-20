@@ -1,6 +1,6 @@
 import time, random
 
-def prefixSum1(X, n):
+def prefixSum1(X, n): # O(n^2)
   global p1_start, p1_end # 전역변수 지정 (함수 밖에서 호출하기 위함)
   p1_start = time.process_time() # 시작 시간
   S = [0] * n
@@ -10,7 +10,7 @@ def prefixSum1(X, n):
       S[i] += X[j]
   p1_end = time.process_time() # 끝난 시간
 	
-def prefixSum2(X, n):
+def prefixSum2(X, n): # O(n)
   global p2_start, p2_end # 전역변수 지정 (함수 밖에서 호출하기 위함)
   p2_start = time.process_time() # 시작 시간
   S = [0] * n
