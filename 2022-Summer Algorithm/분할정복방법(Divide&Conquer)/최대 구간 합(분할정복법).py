@@ -19,7 +19,7 @@ def max_sum(A, left, right):
     i -= 1
     
   # 중간에 걸친 경우, 오른쪽 최대합
-  # A[mid+1...j]형태를 갖느 ㄴ최대 구간을 찾음
+  # A[mid+1...j]형태를 갖는 최대 구간을 찾음
   j = mid + 1
   sum = 0
   right_part = -100000
