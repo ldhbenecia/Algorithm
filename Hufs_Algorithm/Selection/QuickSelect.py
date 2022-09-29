@@ -1,8 +1,8 @@
-def QuickSelect(L, k):
+def QuickSelect(L, k): # O(n^2) - worst case, O(n) - best case, O(n) - average case
   A, M, B = [], [], [] # Small, Middle, Large sets to p
   p = L[0]  # pivot p is the first element of A
 
-  for a in L:
+  for a in L: # O(n)
     if a < p:
       A.append(a)
     elif a == p:
