@@ -1,8 +1,9 @@
 def reverse(A):
   if len(A) == 1:
     return A
-  return reverse(A[1:] + A[0]) # A[0]를 맨 뒤로 보내고 나머지는 재귀
+  return reverse(A[1:]) + A[0] # A[0]를 맨 뒤로 보내고 나머지는 재귀
 # O(n^2_)
+
 
 
 def reverse2(A, start, stop): # stop-1까지가 대상임에 유의
@@ -10,3 +11,9 @@ def reverse2(A, start, stop): # stop-1까지가 대상임에 유의
     A[start], A[stop-1] = A[stop-1], A[start]
     reverse(A, start+1, stop-1)
 # O(n)
+
+  
+A = input()
+ans = reverse(A)
+
+print(ans)
