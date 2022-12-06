@@ -50,7 +50,7 @@ def printNodes(node, val=''):
 chars = ['a', 'b', 'c', 'd', 'e', 'f']
 
 # frequency of characters
-freq = [45,13,12,16,9,5]
+freq = [45, 13, 12, 16, 9, 5]
 
 # list containing unused nodes
 nodes = []
