@@ -1,24 +1,16 @@
 n = int(input())
-card = sorted(list(map(int, input().split())))
+num = list(map(int, input().split()))
 m = int(input())
-validCard = list(map(int, input().split()))
+find_num = list(map(int, input().split()))
 
-def binary_search(array, target):
-  start = 0
-  end = len(array) - 1
-  
-  while start <= end:
-    mid = (start + end) // 2
-    if array[mid] == target:
-      return "1"
-    elif array[mid] > target:
-      end = mid - 1
-    else:
-      start = mid + 1
-  return "0"
+dic = {}
 
-result = []
-for i in validCard:
-  result.append(binary_search(card, i))
+for i in find_num:
+  dic[i] = 0
 
-print(" ".join(result))
+for i in num:
+  if i in dic:
+    dic[i] = 1
+    
+for i in dic:
+  print(dic[i], end = " ")
