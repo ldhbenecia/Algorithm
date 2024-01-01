@@ -16,7 +16,7 @@ for _ in range(t):
   trees = left + right
   
   result = 0
-  for i in range(1, n):
+  for i in range(n):
     result = max(result, abs(trees[i] - trees[i-1]))
   
   print(result)
