@@ -1,34 +1,26 @@
-# N = 2, 4, 8, 16, 32, 128
-# 재귀 가능
-
 n = int(input())
 graph = [list(map(int, input().split())) for _ in range(n)]
 white, blue = 0, 0
 
 def dfs(x, y, n):
-  global white, blue
-  is_same = True
+  global white, blue;
+  half_size = n // 2
+  color = graph[x][y]
   
   for i in range(x, x + n):
     for j in range(y, y + n):
-			# 전부 0이나 1인 그래프가 아닐 시 사분면 탐색 시행
-      if graph[x][y] != graph[i][j]:
-        is_same = False
-        break
+      if color != graph[i][j]:
+        dfs(x, y, half_size) # 2사분면
+        dfs(x, y + half_size, half_size) # 1사분면
+        dfs(x + half_size, y, half_size) # 3사분면
+        dfs(x + half_size, y + half_size, half_size) # 4사분면
+        return
   
-	# 전부 0이나 1일 시 0이나 1 출력    
-  if is_same:
-    if graph[x][y] == 0:
-      white += 1
-    else:
-      blue += 1
+  if color == 0:
+    white += 1
   else:
-    n = n // 2
-    dfs(x, y, n)
-    dfs(x, y + n, n)
-    dfs(x + n, y, n)
-    dfs(x + n, y + n, n)
-       
+    blue += 1
+  
 dfs(0, 0, n)
-print(white) # White
-print(blue) # Blue
+print(white)
+print(blue)
