@@ -1,5 +1,4 @@
 x = int(input())
-
 cnt = 0
 stick = 64
 
