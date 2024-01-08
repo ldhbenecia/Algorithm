@@ -1,13 +1,9 @@
-# O(n)
-# -10,000,000 < N < 10,000,000
-
 n = int(input())
 num = map(int, input().split())
 m = int(input())
-num_count = map(int, input().split())
+find_num = map(int, input().split())
 
 dic = {}
-result = []
 
 for i in num:
   if i in dic:
@@ -15,11 +11,11 @@ for i in num:
   else:
     dic[i] = 1
     
-for i in num_count:
+result = []
+for i in find_num:
   if i in dic:
     result.append(dic[i])
   else:
     result.append(0)
-
-for i in result:
-  print(i, end=" ")
+    
+print(*result)
