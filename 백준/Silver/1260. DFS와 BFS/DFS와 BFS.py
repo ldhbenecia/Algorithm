@@ -1,39 +1,39 @@
 from collections import deque
 
-n, m, v = map(int, input().split())
-graph = [[False] * (n + 1) for _ in range(n + 1)]
+N, M, V = map(int, input().split())
+graph = [[False] * (N + 1) for _ in range(N + 1)]
 
-for _ in range(m):
+for _ in range(M):
   a, b = map(int, input().split())
   
-  # 인접한 연결 노드 True 처리
   graph[a][b] = True
   graph[b][a] = True
   
-visitedDfs = [False] * (n + 1) # DFS 방문기록
-visitedBfs = [False] * (n + 1) # BFS 방문기록
+visitedDfs = [False] * (N + 1)
+visitedBfs = [False] * (N + 1)
 
-def dfs(v):
-  visitedDfs[v] = True
-  print(v, end=' ')
+def dfs(V):
+  visitedDfs[V] = True
+  print(V, end=" ")
   
-  for i in range(1, n + 1):
-    if visitedDfs[i] == False and graph[v][i] == True:
+  for i in range(1, N + 1):
+    if visitedDfs[i] == False and graph[V][i] == True:
       dfs(i)
       
-def bfs(v):
-  queue = deque([v])
-  visitedBfs[v] = True
+def bfs(V):
+  queue = deque()
+  queue.append(V)
+  visitedBfs[V] = True
   
   while queue:
-    v = queue.popleft()
-    print(v, end=' ')
+    V = queue.popleft()
+    print(V, end=" ")
     
-    for i in range(1, n + 1):
-      if visitedBfs[i] == False and graph[v][i] == True:
+    for i in range(1, N + 1):
+      if visitedBfs[i] == False and graph[V][i] == True:
         queue.append(i)
         visitedBfs[i] = True
-      
-dfs(v)
+  
+dfs(V)
 print()
-bfs(v)
+bfs(V)
