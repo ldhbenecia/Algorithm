@@ -3,16 +3,15 @@ import heapq
 input = sys.stdin.readline
 
 n = int(input())
-lst = []
+heap = []
 
 for _ in range(n):
-   x = int(input())
-   
-   if x > 0:
-      heapq.heappush(lst, -x)
-   elif x == 0:
-      if lst:
-         print(-1 * heapq.heappop(lst))
-      else:
-         print(0)
-         
+  x = int(input())
+  
+  if x > 0:
+    heapq.heappush(heap, -x)
+  elif x == 0:
+    if heap:
+      print(abs(heapq.heappop(heap)))
+    else:
+      print(0)
