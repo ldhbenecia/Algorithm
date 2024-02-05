@@ -1,16 +1,18 @@
 n = int(input())
-num = list(map(int, input().split()))
+nums = map(int, input().split())
 m = int(input())
-find_num = list(map(int, input().split()))
+find_nums = map(int, input().split())
 
 dic = {}
 
-for i in find_num:
-  dic[i] = 0
-
-for i in num:
+for i in nums:
   if i in dic:
+    dic[i] += 1
+  else:
     dic[i] = 1
     
-for i in dic:
-  print(dic[i], end = " ")
+for i in find_nums:
+  if i in dic:
+    print(1, end=" ")
+  else:
+    print(0, end=" ")
