@@ -1,16 +1,13 @@
 def solution(sizes):
-    answer = 0
     width = []
     height = []
     
-    for i in range(len(sizes)):
-        if sizes[i][0] >= sizes[i][1]:
-            width.append(sizes[i][0])
-            height.append(sizes[i][1])
+    for i in sizes:
+        if i[0] > i[1]:
+            width.append(i[0])
+            height.append(i[1])
         else:
-            width.append(sizes[i][1])
-            height.append(sizes[i][0])
-    
-    answer = max(width) * max(height)
-    
-    return answer
+            width.append(i[1])
+            height.append(i[0])
+            
+    return max(width) * max(height)
