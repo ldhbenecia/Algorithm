@@ -13,11 +13,7 @@ def solution(answers):
         if answers[i] == a3[i % 10]:
             correct["3"] += 1
     
-    max_value = 0
-    for _, value in correct.items():
-        if max_value < value:
-            max_value = value
-    
+    max_value = max(correct.values())
     max_list = []
     for key, value in correct.items():
         if max_value == value:
@@ -28,5 +24,3 @@ def solution(answers):
     else:
         max_list.sort()
         return list(map(int, max_list))
-        
-    return answer
