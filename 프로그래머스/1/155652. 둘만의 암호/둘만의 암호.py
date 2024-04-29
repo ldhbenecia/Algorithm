@@ -6,11 +6,7 @@ def solution(s, skip, index):
     for i in skip:
         alphabet.remove(i)
     for i in s:
-        change = alphabet.index(i) + index
-        if change >= len(alphabet):
-            a = change % len(alphabet)
-            answer += alphabet[a]
-        else:
-            answer += alphabet[change]
+        change = (alphabet.index(i) + index) % len(alphabet)
+        answer += alphabet[change]
 
     return answer
