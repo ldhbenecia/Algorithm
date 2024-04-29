@@ -3,7 +3,7 @@ def measure_count(num):
 
     for i in range(1, int(num**(1/2)) + 1):
         if num % i == 0:
-            if i == num // i:
+            if i**2 == num:
                 count += 1
             else:
                 count += 2
