@@ -2,9 +2,10 @@ def solution(numbers):
     answer = [-1] * len(numbers)
     stack = []
     
-    for idx, num in enumerate(numbers):
-        while stack and numbers[stack[-1]] < num:
-            answer[stack.pop()] = numbers[idx]
+    for i in range(len(numbers)):
+        while stack and numbers[stack[-1]] < numbers[i]:
+            answer[stack[-1]] = numbers[i]
+            stack.pop()
             
-        stack.append(idx)
+        stack.append(i)
     return answer
