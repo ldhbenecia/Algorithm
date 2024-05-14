@@ -11,7 +11,7 @@ def bfs(a, b):
     visited[position] = 1
 
     if position == b and time <= shortest_time:
-      shortest_time = min(shortest_time, time)
+      shortest_time = time
       count += 1
     if time > shortest_time:
       break
