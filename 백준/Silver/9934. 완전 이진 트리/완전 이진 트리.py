@@ -1,21 +1,21 @@
 import sys
 input = sys.stdin.readline
 
-def inorder(start, end, idx):
-  if start > end:
+def inorder(nums, level):
+  if not nums:
     return
   
-  node = (start + end) // 2
-  tree[idx].append(nums[node])
-  inorder(start, node - 1, idx + 1) # 왼쪽 서브트리
-  inorder(node + 1, end, idx + 1) # 오른쪽 서브트리
+  mid = len(nums) // 2
+  tree[level].append(nums[mid])
+  inorder(nums[:mid], level + 1) # 왼쪽 서브트리
+  inorder(nums[mid + 1:], level + 1) # 오른쪽 서브트리
   
 
 k = int(input())
 nums = list(map(int, input().split()))
 tree = [[] for _ in range(k)]
 
-inorder(0, len(nums) - 1, 0)
+inorder(nums, 0)
 
 for i in tree:
   print(*i)
