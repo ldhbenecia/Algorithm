@@ -1,15 +1,19 @@
 def solution(order):
     answer = 0
     
-    belt = [] # 보조 컨테이너 벨트
-    idx = 0
+    stack = [] # 보조 컨테이너 벨트
+    length = len(order)
+    current, num = 0, 1
     
-    for i in range(1, len(order) + 1):
-        belt.append(i)
+    while current < length:
+        if order[current] > num:
+            stack.append(num)
+            num += 1
+            
+        elif order[current] == num:
+            print(stack, order[current])
+            break
         
-        while belt and belt[-1] == order[idx]:
-            answer += 1
-            idx += 1
-            belt.pop()
+
     
     return answer
