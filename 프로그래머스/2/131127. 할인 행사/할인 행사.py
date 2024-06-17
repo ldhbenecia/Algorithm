@@ -1,21 +1,18 @@
 def solution(want, number, discount):
     answer = 0
     
+    # want, number 딕셔너리 초기화
     dic = {}
-    
-    for i in want:
-        dic[i] = 0
-    
     for i in range(len(number)):
         dic[want[i]] = number[i]
     
-    first_day = 0
-    #end_day = first_day + 9
     for day, kind in enumerate(discount):
         end_day = day + 9
         
+        # 10일간의 할인상품 목록 딕셔너리 초기화
         day_dic = {}
         for i in discount[day:end_day + 1]:
+            # want에 없는 항목이면 바로 배제
             if i not in dic:
                 break
             
