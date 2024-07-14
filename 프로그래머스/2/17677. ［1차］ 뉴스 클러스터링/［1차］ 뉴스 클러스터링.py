@@ -15,7 +15,9 @@ def solution(str1, str2):
     # 교집합, 합집합 크기
     intersection, union = 0, 0
     
+    # 집합으로 변형 후 합집합으로 순회
     for i in set(str1_lst).union(set(str2_lst)):
+        # 집합의 경우 중복이 제거되지만 str1_lst, str2_lst는 집합 형태가 아니므로 카운팅 가능
         intersection += min(str1_lst.count(i), str2_lst.count(i))
         union += max(str1_lst.count(i), str2_lst.count(i))
     
