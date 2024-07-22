@@ -15,6 +15,5 @@ result = 0
 for i in range(l):
     temp = txt[i]
     result += dic[temp] * (r ** i)
-    result % m
     
-print(result)
+print(result % m)
