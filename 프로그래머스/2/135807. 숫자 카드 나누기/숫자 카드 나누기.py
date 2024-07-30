@@ -1,14 +1,13 @@
 import math
 from functools import reduce
 
+#각 최대 공약수와 각 상대 리스트의 원소를 나눈 나머지가 모두 0이 아닐 때 A, B 최대 공약수 중 더 큰 값을 반환
 def solution(arrayA, arrayB):
     answer = 0
     
     # arrayA, arrayB의 최대공약수 추출
     arrayA_gcd = reduce(math.gcd, arrayA)
     arrayB_gcd = reduce(math.gcd, arrayB)
-    
-    #각 최대 공약수와 각 상대 리스트의 원소를 나눈 나머지가 모두 0이 아닐 때 A, B 최대 공약수 중 더 큰 값을 반환
     
     # arrayA_gcd가 arrayB의 모든 요소를 나눌 수 없는지 확인
     flagA = True
