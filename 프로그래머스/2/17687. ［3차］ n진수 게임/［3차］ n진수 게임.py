@@ -9,19 +9,19 @@ def get_n(n):
             temp = '0'
         else:
             while num > 0:
-                temp = digits[num % n] + temp
+                temp += digits[num % n]
                 num //= n
-        lst.append(temp)
-            
-    full_string = ''.join(lst)
-    return full_string
+        temp = temp[::-1]
+        lst.extend(temp)
+        
+    return lst
 
 def solution(n, t, m, p):
     answer = ''
     
-    n_string = get_n(n)
-    for i in range(p - 1, len(n_string), m):
-        answer += n_string[i]
+    n_lst = get_n(n)
+    for i in range(p - 1, len(n_lst), m):
+        answer += n_lst[i]
         
     answer = answer[:t]
     
