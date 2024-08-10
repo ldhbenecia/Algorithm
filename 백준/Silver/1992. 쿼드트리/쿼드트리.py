@@ -1,24 +1,25 @@
+def quard(row, col, size):
+    is_same = True
+
+    for i in range(row, row + size):
+        for j in range(col, col + size):
+            if graph[row][col] != graph[i][j]:
+                is_same = False
+                break
+
+    # 해당 영역(사분면)이 1이거나 0인지 판별
+    if is_same:
+        print(graph[row][col], end = '')
+    else:
+        half_size = size // 2
+        print("(", end = '')
+        quard(row, col, half_size) # 왼쪽 위
+        quard(row, col + half_size, half_size) # 오른쪽 위
+        quard(row + half_size, col, half_size) # 왼쪽 아래
+        quard(row + half_size, col + half_size, half_size) # 오른쪽 아래
+        print(")", end = '')
+
 n = int(input())
 graph = [list(map(int, input())) for _ in range(n)]
 
-def backtracking(r, c, n):
-  is_same = True
-
-  for i in range(r, r + n):
-    for j in range(c, c + n):
-      if graph[r][c] != graph[i][j]:
-        is_same = False
-        break
-
-  if is_same:
-    print(graph[r][c], end="")
-  else:
-    half_size = n // 2
-    print("(", end="")
-    backtracking(r, c, half_size)
-    backtracking(r, c + half_size, half_size)
-    backtracking(r + half_size, c, half_size)
-    backtracking(r + half_size, c + half_size, half_size)
-    print(")", end="")
-  
-backtracking(0, 0, n)
+quard(0, 0, n)
