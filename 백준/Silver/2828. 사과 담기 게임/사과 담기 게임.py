@@ -1,22 +1,19 @@
 n, m = map(int, input().split())
 j = int(input())
-positions = [int(input()) for _ in range(j)]
+position = [int(input()) for _ in range(j)]
 
+start = 1
+end = m
 count = 0
-left = 1
-right = m
 
-for position in positions:
-  # 사과가 오른쪽에 떨어진다면
-  if position > right:
-    count += (position - right)
-    left += (position - right)
-    right = position
-    
-  # 사과가 왼쪽에 떨어진다면
-  elif position < left:
-    count += (left - position)
-    right -= left - position
-    left = position
-    
+for i in position:
+    if i > end:
+        count += (i - end)
+        start += (i - end)
+        end = i
+    elif i < start:
+        count += (start - i)
+        end -= (start - i)
+        start = i
+
 print(count)
