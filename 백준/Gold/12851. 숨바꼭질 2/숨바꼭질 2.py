@@ -1,30 +1,31 @@
 from collections import deque
 
-
 def bfs(a, b):
-  queue = deque([(a, 0)])
-  shortest_time = 100000
-  count = 0
+    queue = deque([(a, 0)]) # 출발 지점, 시간
+    fast = 1e9
+    cnt = 0
 
-  while queue:
-    position, time = queue.popleft()
-    visited[position] = 1
+    while queue:
+        position, time = queue.popleft()
+        visited[position] = True
 
-    if position == b and time <= shortest_time:
-      shortest_time = time
-      count += 1
-    if time > shortest_time:
-      break
-    
-    for i in [position - 1, position + 1, position * 2]:
-      if 0 <= i <= 100000 and not visited[i]:
-        queue.append((i, time + 1))
+        # base 조건
+        if position == b and time <= fast:
+            cnt += 1
+            fast = time
+        if time > fast:
+            break
 
-  return shortest_time, count
+        for i in [position * 2, position - 1, position + 1]:
+            if 0 <= i <= 100000 and not visited[i]:
+                queue.append((i, time + 1))
+
+    return fast, cnt
 
 n, k = map(int, input().split())
-visited = [0] * 100001
+visited = [False] * 100001
 
-shortest_time, num_ways = bfs(n, k)
-print(shortest_time)
-print(num_ways)
+fast, kind = bfs(n, k)
+
+print(fast)
+print(kind)
