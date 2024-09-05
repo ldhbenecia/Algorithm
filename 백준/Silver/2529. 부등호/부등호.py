@@ -1,27 +1,26 @@
-import sys
-input = sys.stdin.readline
+def valid(a, b, op):
+    if op == '<':
+        return a < b
+    else:
+        return a > b
 
-def check_sign(a, b, op):
-  if op == '<':
-    return a < b
-  else:
-    return a > b
-
-def dfs(idx, num):
-  if idx == k + 1:
-    lst.append(num)
-    return
-  
-  for i in range(10):
-    if not check[i]:
-      if idx == 0 or check_sign(num[-1], str(i), sign[idx - 1]):
-        check[i] = 1
-        dfs(idx + 1, num + str(i))
-        check[i] = 0
+def dfs(depth, num):
+    if depth == k + 1:
+        lst.append(num)
+        return
+    
+    for i in range(10):
+        if not visited[i]:
+            # 마지막 숫자와 0부터 9까지의 수를 비교해서 차근차근 쌓아감
+            if depth == 0 or valid(num[-1], str(i), sign[depth - 1]):
+                visited[i] = 1
+                dfs(depth + 1, num + str(i))
+                visited[i] = 0
 
 k = int(input())
 sign = list(input().split())
-check = [0] * 10
+visited = [0] * 10
+
 lst = []
 dfs(0, '')
 
