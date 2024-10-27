@@ -5,14 +5,10 @@ class Solution {
         List<Integer> answer = new ArrayList<>();
         int maxPercent = 100;
         
-        List<Integer> remain = new ArrayList<>();
-        for (int per : progresses) {
-            remain.add(maxPercent - per);
-        }
-        
         List<Integer> time = new ArrayList<>();
         for (int i = 0; i < speeds.length; i++) {
-            int days = (int) Math.ceil((double) remain.get(i) / speeds[i]);
+            int remaining = maxPercent - progresses[i];
+            int days = (int) Math.ceil((double) remaining / speeds[i]);
             time.add(days);
         }
         
