@@ -1,0 +1,13 @@
+SELECT e.ID, 
+    CASE 
+        WHEN e.per <= 0.25 THEN 'CRITICAL'
+        WHEN e.per <= 0.50 THEN 'HIGH'
+        WHEN e.per <= 0.75 THEN 'MEDIUM'
+        ELSE 'LOW'
+    END AS COLONY_NAME
+FROM (
+    SELECT ID,
+        PERCENT_RANK() OVER (ORDER BY SIZE_OF_COLONY DESC) AS per
+    FROM ECOLI_DATA
+) AS e
+ORDER BY e.ID;
