@@ -1,25 +1,49 @@
+from collections import deque
+
+
+def dfs(x):
+    stack = [x]
+    visited[x] = True
+    count = 0
+
+    while stack:
+        v = stack.pop()
+        for i in graph[v]:
+            if not visited[i]:
+                visited[i] = True
+                stack.append(i)
+                count += 1
+    return count
+
+
+def bfs(x):
+    queue = deque([x])
+    visited[x] = True
+    count = 0
+
+    while queue:
+        v = queue.popleft()
+
+        for i in graph[v]:
+            if not visited[i]:
+                visited[i] = True
+                queue.append(i)
+                count += 1
+
+    return count
+
+
 n = int(input())
 m = int(input())
 
-graph = [[False] * (n + 1) for _ in range(n + 1)]
+graph = [[] for _ in range(n + 1)]
+visited = [False for _ in range(n + 1)]
 
 for _ in range(m):
-  a, b = map(int, input().split())
-  
-  # 인접 노드 연결
-  graph[a][b] = True
-  graph[b][a] = True
-  
-visited = [False] * (n + 1)
+    a, b = map(int, input().split())
 
-v = 1 # 1번 컴퓨터가 바이러스 걸림
+    graph[a].append(b)
+    graph[b].append(a)
 
-def dfs(v):
-  visited[v] = True
-  
-  for i in range(1, n + 1):
-    if visited[i] == False and graph[v][i] == True:
-      dfs(i)
-      
-dfs(v)
-print(sum(visited) - 1)
+# print(bfs(1))
+print(dfs(1))
