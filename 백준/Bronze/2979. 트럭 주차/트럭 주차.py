@@ -1,22 +1,19 @@
-import sys
-input = sys.stdin.readline
+a, b, c = map(int, input().split())
 
-A, B, C = map(int, input().split())
-time = [0] * 101
+distance = [0] * 101
+for i in range(3):
+    x, y = map(int, input().split())
+    
+    for j in range(x, y):
+        distance[j] += 1
 
-for _ in range(3):
-  a, b = map(int, input().split())
-  
-  for i in range(a, b):
-    time[i] += 1
-    
-answer = 0
-for i in time:
-  if i == 1:
-    answer += i * A
-  if i == 2:
-    answer += i * B
-  if i == 3:
-    answer += i * C
-    
-print(answer)
+result = 0
+for i in distance:
+    if i == 1:
+        result += a
+    elif i == 2:
+        result += b * 2
+    elif i == 3:
+        result += c * 3
+
+print(result)
