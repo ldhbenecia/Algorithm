@@ -1,17 +1,28 @@
-import sys
-input = sys.stdin.readline
-
 n = int(input())
-last_name = [input().strip()[0] for _ in range(n)]
-set_last_name = set(last_name)
+player = [input() for _ in range(n)]
 
 result = []
-for i in set_last_name:
-  if last_name.count(i) >= 5:
-    result.append(i)
-    
-result.sort()
-if result:
-  print(''.join(result))
-else:
-  print('PREDAJA')
+
+for i in range(n):
+    cnt = 0
+    current = player[i][0]
+    for j in range(n):
+        if player[j][0] == current:
+            cnt += 1
+
+    if cnt >= 5:
+        result.append(current)
+
+if not result:
+    print("PREDAJA")
+    exit()
+
+result_lst = []
+for i in result:
+    if i not in result_lst:
+        result_lst.append(i)
+
+result_lst.sort()
+
+for i in result_lst:
+    print(i, end="")
