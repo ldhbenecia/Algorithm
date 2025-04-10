@@ -4,11 +4,13 @@ while True:
     except:
         break
 
-    num = '1'
-    while True:
-        if int(num) % n == 0:
-            break
-        else:
-            num += '1'
+    num = 1
+    cnt = 1  # 자릿수
 
-    print(len(num))
+    while True:
+        if num % n == 0:
+            print(cnt)
+            break
+
+        num = num * 10 + 1
+        cnt += 1
