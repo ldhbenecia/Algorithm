@@ -1,13 +1,10 @@
 n, m = map(int, input().split())
 j = int(input())
 position = [int(input()) for _ in range(j)]
-position = list(
-    map(lambda x: x - 1, position)
-)  # position은 인덱스형 위치값이 아니므로 -1씩 해서 처리
 
 move = 0
-left = 0
-right = m - 1
+left = 1
+right = m
 
 for i in position:
     # 1. 가만히 있어도 바구니에 사과가 떨어지는 경우
@@ -27,6 +24,5 @@ for i in position:
         move += distance
         left += distance
         right += distance
-
 
 print(move)
