@@ -1,25 +1,33 @@
-def quard(row, col, size):
-    is_same = True
-
-    for i in range(row, row + size):
-        for j in range(col, col + size):
-            if graph[row][col] != graph[i][j]:
-                is_same = False
+def tree(x, y, n):
+    temp = board[x][y]
+    for i in range(x, x + n):
+        for j in range(y, y + n):
+            if temp != board[i][j]:
+                temp = -1
                 break
 
-    # 해당 영역(사분면)이 1이거나 0인지 판별
-    if is_same:
-        print(graph[row][col], end = '')
+    # 전체가 0이거나 1이 아닌 경우
+    if temp == -1:
+        result.append("(")
+
+        # 절반으로 나눠도 더 분할해야하면 계속 분할
+        n //= 2
+        tree(x, y, n) # 왼쪽 위
+        tree(x, y + n, n) # 오른쪽 위
+        tree(x + n, y, n) # 왼쪽 아래
+        tree(x + n, y + n, n) # 오른쪽 아래
+        result.append(")")
+
+    elif temp == 1:
+        result.append("1")
     else:
-        half_size = size // 2
-        print("(", end = '')
-        quard(row, col, half_size) # 왼쪽 위
-        quard(row, col + half_size, half_size) # 오른쪽 위
-        quard(row + half_size, col, half_size) # 왼쪽 아래
-        quard(row + half_size, col + half_size, half_size) # 오른쪽 아래
-        print(")", end = '')
+        result.append("0")
+
 
 n = int(input())
-graph = [list(map(int, input())) for _ in range(n)]
+board = [list(map(int, input())) for _ in range(n)]
+result = []
+tree(0, 0, n)
 
-quard(0, 0, n)
+result = "".join(result)
+print(result)
