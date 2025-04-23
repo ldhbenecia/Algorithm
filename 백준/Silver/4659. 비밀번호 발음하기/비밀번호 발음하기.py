@@ -1,41 +1,47 @@
-gather = ['a', 'e', 'i', 'o', 'u']
+moem = ["a", "e", "i", "o", "u"]
 
 while True:
-    word = input().lower()
+    t = input()
 
-    if word == 'end':
-        exit()
+    if t == "end":
+        break
 
-    valid = True
-    # 모음 하나를 포함 여부
-    check = 0
-    for i in word:
-        if i in gather:
-            check += 1
-    if check == 0:    
-        valid = False
-
-    # 모음 혹은 자음이 3개 연속으로 오는지
-    gather_cnt = 0
-    consonant_cnt = 0
-    for i in word:
-        if i in gather:
-            gather_cnt += 1
-            consonant_cnt = 0
-        else:
-            consonant_cnt += 1
-            gather_cnt = 0
-
-        if gather_cnt >= 3 or consonant_cnt >= 3:
-            valid = False
+    # 모음을 포함하는가?
+    hasMoem = False
+    for i in t:
+        if i in moem:
+            hasMoem = True
             break
 
-    # 같은 글자가 연속으로 두번 오면 안되나 ee, oo는 허용
-    for i in range(1, len(word)):
-        if word[i] == word[i - 1] and word[i] not in ['e', 'o']:
-            valid = False
+    if hasMoem == False:
+        print(f"<{t}> is not acceptable.")
+        continue
 
-    if valid:
-        print(f"<{word}> is acceptable.")
-    else:
-        print(f"<{word}> is not acceptable.")
+    # 모음이 3개 혹은 자음이 3개 연속으로 오는가?
+    hasSequence = False
+    for i in range(len(t) - 2):
+        if t[i] in moem and t[i + 1] in moem and t[i + 2] in moem:
+            hasSequence = True
+            break
+        elif not t[i] in moem and not t[i + 1] in moem and not t[i + 2] in moem:
+            hasSequence = True
+            break
+
+    if hasSequence == True:
+        print(f"<{t}> is not acceptable.")
+        continue
+
+    # 같은 글자가 연속으로 2개인지 체크, 'e', 'o'는 허용
+    isCheck = False
+    for i in range(len(t) - 1):
+        if t[i] == t[i + 1]:
+            if t[i] == "e" or t[i] == "o":
+                continue
+            isCheck = True
+
+    if isCheck == True:
+        print(f"<{t}> is not acceptable.")
+        continue
+
+    print(f"<{t}> is acceptable.")
+    continue
