@@ -1,20 +1,23 @@
 n = int(input())
-task = [input() for _ in range(n)]
-
 result = []
-for i in task:
-    num = ''
-    for j in i:
-        if j.isnumeric():
-            num += j
-        else:
-            if num:
-                result.append(num)
-                num = ''
-    if num:
-        result.append(num)
 
-result = list(map(int, result))
-result.sort()     
+for _ in range(n):
+    content = input()
+    temp = ""
+    for i in content:
+        if i.isdigit():
+            temp += i
+        # 문자가 나올 경우
+        else:
+            # 숫자가 차있으면, 숫자 등록하고 정리
+            if temp != "":
+                result.append(int(temp))
+                temp = ""
+
+    # 문자가 나와서 정리가 안되는 경우
+    if temp != "":
+        result.append(int(temp))
+
+result.sort()
 for i in result:
     print(i)
