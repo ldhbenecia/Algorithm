@@ -1,14 +1,15 @@
-from collections import Counter
-
 n, c = map(int, input().split())
-nums = list(map(int, input().split()))
+arr = list(map(int, input().split()))
 
-cnt = Counter(nums).most_common()
+dic = {}
+for i in arr:
+    if i not in dic:
+        dic[i] = 1
+    else:
+        dic[i] += 1
 
-result = []
-for key, n in cnt:
-    for i in nums:
-        if i == key:
-           result.append(i) 
-           
-print(*result)
+dic = sorted(dic.items(), key=lambda x: x[1], reverse=True)
+
+for key, value in dic:
+    for i in range(value):
+        print(str(key) + " ", end="")
