@@ -1,43 +1,58 @@
 n = int(input())
-total_time = 48 * 60
+
+team1_score = 0
+team2_score = 0
 team1_time = 0
 team2_time = 0
-last_time = 0
-lead_team = 0
-score1 = 0
-score2 = 0
 
-def time_to_seconds(time):
-    mm, ss = map(int, time.split(":"))
-    return mm * 60 + ss
+prev_time = 0  # 마지막 리드 변경 시점
+lead_team = 0  # 현재 리드 팀 (0=무승부, 1=팀1, 2=팀2)
+
+
+def to_sec(time):
+    m, s = map(int, time.split(":"))
+    return m * 60 + s
+
+
+def to_str(sec):
+    return f"{sec // 60:02d}:{sec % 60:02d}"
+
 
 for _ in range(n):
     team, time = input().split()
-    current_time = time_to_seconds(time)
-
-    if lead_team == 1:
-        team1_time += current_time - last_time
-    elif lead_team == 2:
-        team2_time += current_time - last_time
+    current_time = to_sec(time)
 
     if team == "1":
-        score1 += 1
+        team1_score += 1
     else:
-        score2 += 1
+        team2_score += 1
 
-    if score1 > score2:
-        lead_team = 1
-    elif score2 > score1:
-        lead_team = 2
-    else:
-        lead_team = 0  # 비기는 경우
+    if team1_score > team2_score:
+        if lead_team == 2:
+            team2_time += current_time - prev_time  # 이전 리드 종료 → 시간 누적
+        if lead_team != 1:
+            prev_time = current_time  # 리드 바뀐 시점 저장
+            lead_team = 1  # 현재 리드 팀 갱신
 
-    last_time = current_time
+    elif team2_score > team1_score:
+        if lead_team == 1:
+            team1_time += current_time - prev_time  # 이전 리드 종료 → 시간 누적
+        if lead_team != 2:
+            prev_time = current_time  # 리드 바뀐 시점 저장
+            lead_team = 2  # 현재 리드 팀 갱신
 
+    else:  # 동점
+        if lead_team == 1:
+            team1_time += current_time - prev_time
+        elif lead_team == 2:
+            team2_time += current_time - prev_time
+        lead_team = 0
+
+end_time = 48 * 60
 if lead_team == 1:
-    team1_time += total_time - last_time
+    team1_time += end_time - prev_time
 elif lead_team == 2:
-    team2_time += total_time - last_time
+    team2_time += end_time - prev_time
 
-print(f"{team1_time // 60:02d}:{team1_time % 60:02d}")
-print(f"{team2_time // 60:02d}:{team2_time % 60:02d}")
+print(to_str(team1_time))
+print(to_str(team2_time))
