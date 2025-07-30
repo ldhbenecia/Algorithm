@@ -3,28 +3,31 @@ from collections import deque
 
 def bfs():
     queue = deque()
-    visited = [[[False] * 61 for _ in range(61)] for _ in range(61)]
+    visited = [
+        [[False] * 61 for _ in range(61)] for _ in range(61)
+    ]  # SCV는 최대 3개까지이므로 3개까지의 체력 책정
 
-    # 체력 초기값 세팅 (없으면 0)
     a, b, c = 0, 0, 0
-    if len(hp) >= 1:
+    if n == 1:
         a = hp[0]
-    if len(hp) >= 2:
+    elif n == 2:
+        a = hp[0]
         b = hp[1]
-    if len(hp) == 3:
+    else:
+        a = hp[0]
+        b = hp[1]
         c = hp[2]
 
-    queue.append((a, b, c, 0))
-    visited[a][b][c] = True
+    queue.append((a, b, c, 0))  # 각각 SCV의 체력과 count
 
     while queue:
         x, y, z, cnt = queue.popleft()
 
+        # base
         if x == 0 and y == 0 and z == 0:
             print(cnt)
             return
 
-        # 공격 받은 후 SCV 체력 측정 - 0 이하는 파괴이므로 0으로 지정
         for d1, d2, d3 in patterns:
             nx = max(0, x - d1)
             ny = max(0, y - d2)
