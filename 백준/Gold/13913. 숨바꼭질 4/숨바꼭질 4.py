@@ -1,29 +1,40 @@
 from collections import deque
 
-def bfs(a, b):
-  queue = deque([(a, 0)])
-  
-  while queue:
-    position, time = queue.popleft()
-    
-    if position == b:
-      idx = position
-      while idx != a:
-        path.append(idx)
-        idx = visited[idx]
-      path.append(a)
-      path.reverse()
-      return time, path
-    
-    for i in [2 * position, position - 1, position + 1]:
-      if 0 <= i < 100001 and visited[i] == -1:
-        visited[i] = position
-        queue.append((i, time + 1))
-      
-n, k = map(int, input().split())
-visited = [-1 for _ in range(100001)]
-path = []
+MAX = 100001
 
-time, route = bfs(n, k)
-print(time)
-print(" ".join(map(str, route)))
+
+def bfs():
+    queue = deque([n])
+    visited = [False] * MAX
+    visited[n] = True
+    dist = [-1] * MAX
+
+    while queue:
+        current = queue.popleft()
+
+        # base
+        if current == k:
+            break
+
+        for next in [current - 1, current + 1, current * 2]:
+            if 0 <= next < MAX and not visited[next]:
+                visited[next] = True
+                dist[next] = current
+                queue.append(next)
+
+    # 경로 역추적
+    path = []  # 경로 담을 리스트
+    pos = k  # 시작 위치
+    while pos != -1:  # -1이 나오기전까지 추적 (뒤로 돌아가기)
+        path.append(pos)
+        pos = dist[pos]
+
+    path.reverse()
+    return len(path) - 1, path  # 시작 지점은 time에 미포함하므로 -1
+
+
+n, k = map(int, input().split())
+
+cnt, path = bfs()
+print(cnt)
+print(*path)
