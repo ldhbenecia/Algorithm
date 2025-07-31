@@ -1,31 +1,33 @@
 from collections import deque
 
-def bfs(a, b):
-    queue = deque([(a, 0)]) # 출발 지점, 시간
-    fast = 1e9
-    cnt = 0
+
+def bfs():
+    queue = deque([n])
+    visited = [0] * 100001
+    time, cnt = 0, 0
 
     while queue:
-        position, time = queue.popleft()
-        visited[position] = True
+        current = queue.popleft()
 
-        # base 조건
-        if position == b and time <= fast:
+        # base
+        # 동생의 위치에 도달했으면
+        if current == k:
+            time = visited[current]  # 결과 값은 현재 위치
             cnt += 1
-            fast = time
-        if time > fast:
-            break
+            continue
 
-        for i in [position * 2, position - 1, position + 1]:
-            if 0 <= i <= 100000 and not visited[i]:
-                queue.append((i, time + 1))
+        for next in [current - 1, current + 1, current * 2]:
+            if 0 <= next < 100001 and (
+                visited[next] == 0 or visited[next] == visited[current] + 1
+            ):
+                visited[next] = visited[current] + 1
+                queue.append(next)
 
-    return fast, cnt
+    return time, cnt
+
 
 n, k = map(int, input().split())
-visited = [False] * 100001
 
-fast, kind = bfs(n, k)
-
-print(fast)
-print(kind)
+time, cnt = bfs()
+print(time)
+print(cnt)
