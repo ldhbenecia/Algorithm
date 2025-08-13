@@ -1,28 +1,32 @@
-def valid(a, b, op):
-    if op == '<':
-        return a < b
+def is_valid(prev, curr, sign):
+    if sign == "<":
+        return prev < curr
     else:
-        return a > b
+        return prev > curr
 
-def dfs(depth, num):
+
+def backtracking(depth, num):
+    # base
     if depth == k + 1:
-        lst.append(num)
+        result.append("".join(map(str, num)))
         return
-    
+
     for i in range(10):
         if not visited[i]:
-            # 마지막 숫자와 0부터 9까지의 수를 비교해서 차근차근 쌓아감
-            if depth == 0 or valid(num[-1], str(i), sign[depth - 1]):
-                visited[i] = 1
-                dfs(depth + 1, num + str(i))
-                visited[i] = 0
+            if depth == 0 or is_valid(num[depth - 1], i, signs[depth - 1]):
+                visited[i] = True
+                num.append(i)
+                backtracking(depth + 1, num)
+                num.pop()
+                visited[i] = False
+
 
 k = int(input())
-sign = list(input().split())
-visited = [0] * 10
+signs = input().split()
 
-lst = []
-dfs(0, '')
+result = []
+visited = [False] * 10
+backtracking(0, [])
 
-print(lst[-1])
-print(lst[0])
+print(result[-1])
+print(result[0])
