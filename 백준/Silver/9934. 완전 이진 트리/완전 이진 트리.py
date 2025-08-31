@@ -1,21 +1,20 @@
-import sys
-input = sys.stdin.readline
+def dfs(depth, start, end):
+    # base
+    if start > end:
+        return
 
-def inorder(nums, level):
-  if not nums:
-    return
-  
-  mid = len(nums) // 2
-  tree[level].append(nums[mid])
-  inorder(nums[:mid], level + 1) # 왼쪽 서브트리
-  inorder(nums[mid + 1:], level + 1) # 오른쪽 서브트리
-  
+    mid = (start + end) // 2
+    result[depth].append(tree[mid])
+
+    dfs(depth + 1, start, mid - 1)  # 왼쪽
+    dfs(depth + 1, mid + 1, end)  # 오른쪽
+
 
 k = int(input())
-nums = list(map(int, input().split()))
-tree = [[] for _ in range(k)]
+tree = list(map(int, input().split()))
 
-inorder(nums, 0)
+result = [[] for _ in range(k)]
+dfs(0, 0, len(tree) - 1)
 
-for i in tree:
-  print(*i)
+for i in result:
+    print(*i)
