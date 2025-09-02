@@ -1,17 +1,18 @@
-import sys
-input = sys.stdin.readline
-
-s = input().strip()
-boom = input().strip()
+st = input()
+boom = input()
 
 stack = []
+for i in st:
+    stack.append(i)
 
-for i in s:
-  stack.append(i)
-  if ''.join(stack[-len(boom):]) == boom:
-    del stack[-len(boom):]
+    if len(stack) >= len(boom):
+        if "".join(stack[-len(boom) :]) == boom:
+            for _ in range(len(boom)):
+                stack.pop()
 
-if not ''.join(stack):
-  print("FRULA")
+result = "".join(stack)
+
+if result:
+    print(result)
 else:
-  print(''.join(stack))
+    print("FRULA")
