@@ -22,33 +22,48 @@ def diffusion():
     return temp
 
 
-def operate_air_cleaner():
-    up, down = purifier
+def clean_up():
+    x, y = purifier[0][0], purifier[0][1] + 1  # 시작 좌표, 공기청정기 다음 위치 값 부터
+    direction = 0  # 동쪽으로 시작
+    prev = 0
 
-    # 위쪽 (반시계)
-    for i in range(up - 1, 0, -1):  # 세로
-        graph[i][0] = graph[i - 1][0]
-    for j in range(c - 1):  # 가로
-        graph[0][j] = graph[0][j + 1]
-    for i in range(up):  # 세로
-        graph[i][c - 1] = graph[i + 1][c - 1]
-    for j in range(c - 1, 1, -1):  # 가로
-        graph[up][j] = graph[up][j - 1]
-    graph[up][1] = 0  # 청정기 바로 옆
+    while True:
+        nx = dx[direction] + x
+        ny = dy[direction] + y
 
-    # 아래쪽 (시계)
-    for i in range(down + 1, r - 1):  # 4 6
-        graph[i][0] = graph[i + 1][0]
-    for j in range(c - 1):  # 0 ~ 7
-        graph[r - 1][j] = graph[r - 1][j + 1]
-    for i in range(r - 1, down, -1):  # 6 ~ 3
-        graph[i][c - 1] = graph[i - 1][c - 1]
-    for j in range(c - 1, 1, -1):
-        graph[down][j] = graph[down][j - 1]
-    graph[down][1] = 0  # 청정기 바로 옆
+        # 모서리 도착 시 시계방향으로 회전
+        if nx == r or ny == c or nx == -1 or ny == -1:
+            direction = (direction - 1) % 4
+            continue
 
-    graph[up][0] = -1
-    graph[down][0] = -1
+        # 공기청전기 부위에 도착시 중단 조건 (base)
+        if x == purifier[0][0] and y == purifier[0][1]:
+            break
+
+        graph[x][y], prev = prev, graph[x][y]
+        x, y = nx, ny
+
+
+def clean_down():
+    x, y = purifier[1][0], purifier[1][1] + 1  # 시작 좌표, 공기청정기 다음 위치 값 부터
+    direction = 0  # 동쪽으로 시작
+    prev = 0
+
+    while True:
+        nx = dx[direction] + x
+        ny = dy[direction] + y
+
+        # 모서리 도착 시 시계방향으로 회전
+        if nx == r or ny == c or nx == -1 or ny == -1:
+            direction = (direction + 1) % 4
+            continue
+
+        # 공기청전기 부위에 도착시 중단 조건 (base)
+        if x == purifier[1][0] and y == purifier[1][1]:
+            break
+
+        graph[x][y], prev = prev, graph[x][y]
+        x, y = nx, ny
 
 
 r, c, t = map(int, input().split())
@@ -59,12 +74,15 @@ dy = [1, 0, -1, 0]
 
 purifier = []  # 공기청정기 위치
 for i in range(r):
-    if graph[i][0] == -1:  # 1열메만 존재하므로
-        purifier.append(i)
+    for j in range(c):
+        if graph[i][j] == -1:  # 1열메만 존재하므로
+            purifier.append((i, j))
 
+# t초 동안 한번에 확산 후 공기청정기 실행
 for _ in range(t):
-    graph = diffusion()  # 미세먼지 확산
-    operate_air_cleaner()  # 공기청정기 실행
+    graph = diffusion()
+    clean_up()
+    clean_down()
 
 result = 0
 for i in range(r):
