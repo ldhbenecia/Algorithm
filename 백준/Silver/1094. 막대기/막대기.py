@@ -1,12 +1,13 @@
 x = int(input())
-cnt = 0
-stick = 64
+
+result = 0
+default = 64
 
 while x > 0:
-  if stick > x:
-    stick //= 2
-  else:
-    cnt += 1
-    x -= stick
-    
-print(cnt)
+    if default > x:
+        default //= 2
+    else:
+        result += 1
+        x -= default
+
+print(result)
