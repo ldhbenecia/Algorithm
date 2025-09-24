@@ -1,14 +1,13 @@
-n, m = map(int, input().split())
+def backtracking(depth):
+    if depth == m:
+        print(*temp)
+        return
+    for i in range(1, n + 1):
+        temp.append(i)
+        backtracking(depth + 1)
+        temp.pop()
 
-result = []
-def backtracking():
-  if len(result) == m:
-    print(*result)
-    return
-    
-  for i in range(1, n + 1):
-    result.append(i)
-    backtracking()
-    result.pop()
-    
-backtracking()
+
+n, m = map(int, input().split())
+temp = []
+backtracking(0)
