@@ -1,19 +1,30 @@
-def backtracking(length, start):
-  if length == m:
-    print(*result)
-    return
-  
-  for i in range(start, n):
-    if i > 0 and nums[i - 1] == nums[i]:
-      continue
-    result.append(nums[i])
-    backtracking(length + 1, i)
-    result.pop()
-    
+import sys
+
+input = sys.stdin.readline
+
+
+def backtracking(depth):
+    # base
+    if depth == m:
+        print(*temp)
+        return
+
+    prev = None
+    for i in range(n):
+        if prev == nums[i]:
+            continue
+
+        if temp and nums[i] < temp[-1]:
+            continue
+
+        prev = nums[i]
+        temp.append(nums[i])
+        backtracking(depth + 1)
+        temp.pop()
+
 
 n, m = map(int, input().split())
 nums = sorted(list(map(int, input().split())))
 
-result = []
-
-backtracking(0, 0)
+temp = []
+backtracking(0)
