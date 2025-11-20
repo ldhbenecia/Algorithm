@@ -1,12 +1,7 @@
-n = int(input())
+N = int(input())
+nums = [list(map(int, input().split())) for _ in range(N)]
 
-result = []
+nums.sort(key=lambda x: (x[1], x[0]))
 
-for i in range(n):
-  x, y = map(int, input().split())
-  result.append([y, x])
-  
-result.sort()
-
-for x, y in result:
-  print(y, x)
+for i in nums:
+    print(*i)
