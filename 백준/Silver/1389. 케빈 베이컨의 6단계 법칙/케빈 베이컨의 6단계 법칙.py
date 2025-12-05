@@ -1,32 +1,39 @@
-import sys
-input = sys.stdin.readline
-INF = int(1e9)
+from collections import deque
 
-n, m = map(int, input().split())
-graph = [[INF] * (n + 1) for _ in range(n + 1)]
 
-for _ in range(m):
-  a, b = map(int, input().split())
-  graph[a][b] = 1
-  graph[b][a] = 1
+def bfs(start):
+    dist = [-1] * (N + 1)
+    queue = deque([start])
+    dist[start] = 0
 
-for a in range(1, n + 1):
-  for b in range(1, n + 1):
-    if a == b:
-      graph[a][b] = 0
+    while queue:
+        v = queue.popleft()
 
-for k in range(1, n + 1):
-  for a in range(1, n + 1):
-    for b in range(1, n + 1):
-      graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
+        for nx in graph[v]:
+            if dist[nx] == -1:
+                dist[nx] = dist[v] + 1
+                queue.append(nx)
 
-min_value = INF
-person = 0
-for i in range(1, n + 1):
-  answer = sum(graph[i][1:]) # 1부터 n까지의 합
-  if answer < min_value:
-    min_value = answer
-    person = i
-    
-# 여러 명일 경우 가장 작은 사람을 출력하라고 했으니 처음 정해진 min_value에 해당하는 사람
-print(person)
+    return dist
+
+
+N, M = map(int, input().split())
+
+graph = [[] for _ in range(N + 1)]
+
+for _ in range(M):
+    A, B = map(int, input().split())
+    graph[A].append(B)
+    graph[B].append(A)
+
+best_sum = float("inf")
+best_node = 1
+
+for i in range(1, N + 1):
+    dist = bfs(i)
+    total = sum(dist[1:])  # 연결 그래프라면 -1 없음
+    if total < best_sum:
+        best_sum = total
+        best_node = i
+
+print(best_node)
