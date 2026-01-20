@@ -12,19 +12,7 @@ class Solution {
         }
         
         int possible = nums.length / 2;
-        // possible 개수만큼 가져가도 됨
         
-        for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            if (possible == 0) break;
-            
-            if (entry.getValue() > 0) {
-                answer++;
-                possible--;
-            }
-        }
-        
-        
-        
-        return answer;
+        return Math.min(map.size(), possible);
     }
 }
