@@ -1,24 +1,16 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 class Solution {
     public String solution(String[] participant, String[] completion) {
-        Map<String, Integer> participantCount = new HashMap<>();
+        Arrays.sort(participant);
+        Arrays.sort(completion);
         
-        for (String p : participant) {
-            participantCount.put(p, participantCount.getOrDefault(p, 0) + 1);
-        }
-        
-        for (String c : completion) {
-            participantCount.put(c, participantCount.get(c) - 1);
-        }
-        
-        for (String p : participantCount.keySet()) {
-            if (participantCount.get(p) > 0) {
-                return p;
+        for (int i = 0; i < completion.length; i++) {
+            if (!participant[i].equals(completion[i])) {
+                return participant[i];
             }
         }
-
-        return "";
+        
+        return participant[participant.length - 1];
     }
 }
